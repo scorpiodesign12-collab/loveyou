@@ -166,6 +166,47 @@ body.nobg #hearts{display:block}body.nobg #bgv{display:none}
 #coin{position:absolute;left:0;top:0;width:46px;height:46px;margin:-36px 0 0 -10px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:2;filter:drop-shadow(0 4px 4px rgba(0,0,0,.4))}
 #coin.on{opacity:1}#coin svg{width:100%;height:100%;display:block}
 body.fin #pets img{pointer-events:none}
+
+/* ===== ПРИЗ ===== */
+.prizewrap{margin-top:clamp(40px,8vw,72px);text-align:center}
+.prizewrap .go{margin-top:0;font-size:1.1rem;padding:16px 26px}
+@keyframes pzin{from{opacity:0}to{opacity:1}}
+#prize{position:fixed;inset:0;z-index:50;background:#000;display:none;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;transition:opacity .9s ease}
+#prize.on{display:block}
+#prize.bye{opacity:0;pointer-events:none}
+.pz-step{display:none;min-height:100%;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:76px 20px 48px;text-align:center}
+.pz-step.on{display:flex;animation:pzin .9s both}
+.pz-step h2{font:600 clamp(2rem,7vw,3.1rem)/1.15 var(--serif);max-width:640px}
+.pz-step h3{font:600 clamp(1.5rem,5vw,2.1rem)/1.2 var(--serif);max-width:560px}
+.pz-step .pass{width:min(520px,82vw);height:auto}
+#pf{display:flex;flex-direction:column;align-items:center;gap:20px}
+.pzin{width:min(440px,88vw);background:transparent;border:0;border-bottom:2px solid var(--pink);color:#fff;font:500 1.1rem var(--sans);letter-spacing:.05em;text-align:center;padding:10px 4px;outline:0;border-radius:0}
+.pzin::placeholder{color:#555}
+.pzin:focus{border-bottom-color:#fff}
+.pzin.gr{border-bottom-color:#444;color:#777;font-size:clamp(1.1rem,5vw,1.5rem);letter-spacing:.14em;pointer-events:none;user-select:none}
+.pzin.shake{animation:shake .45s}
+#perr{min-height:1.4em;color:var(--pink);font-size:.95rem}
+.pzrow{display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap}
+.pzbtn{background:transparent;color:#fff;border:2px solid #fff;padding:15px 40px;font:500 1.15rem var(--sans);cursor:pointer;min-width:120px;transition:background .25s,border-color .25s,color .25s}
+.pzbtn.yes{background:var(--pink);border-color:var(--pink);color:#000}
+.pzbtn:hover{border-color:var(--pink)}
+.pzbtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.pzbtn.fly{position:fixed;margin:0;z-index:80;transition:left .45s cubic-bezier(.3,1.35,.5,1),top .45s cubic-bezier(.3,1.35,.5,1)}
+.slot{display:inline-block}
+.pzcard{position:relative;margin:0 auto;background:#fff;border:2px solid #000;box-shadow:8px 8px 0 var(--pink);overflow:hidden;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.pzcard canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pzcard .pzb0{pointer-events:none}
+.pzcard .pzsc{touch-action:none;cursor:none;transition:opacity .9s}
+.pzcoin{position:absolute;left:0;top:0;width:46px;height:46px;margin:-36px 0 0 -10px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:2;filter:drop-shadow(0 4px 4px rgba(0,0,0,.4))}
+.pzcoin.on{opacity:1}.pzcoin svg{width:100%;height:100%;display:block}
+.pzq{display:grid;gap:22px;justify-items:center;opacity:0;pointer-events:none;transition:opacity 1s}
+.pzq.on{opacity:1;pointer-events:auto}
+#ptimer{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;translate:-50% 0;z-index:70;background:#000;border:2px solid var(--pink);color:#fff;padding:10px 18px;font:600 1.05rem var(--sans);white-space:nowrap;font-variant-numeric:tabular-nums}
+#ptimer b{color:var(--pink);font-weight:600}
+#psnd{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:75;width:44px;height:44px;border-radius:50%;background:#000;border:2px solid var(--pink);color:var(--pink);display:none;place-items:center;font-size:20px;cursor:pointer}
+#psnd.show{display:grid}#psnd.off{color:#777;border-color:#555}
+#pgone{display:none}
+@media print{#prize{display:none!important}}
 </style>
 </head>
 <body class="locked">
@@ -207,7 +248,57 @@ body.fin #pets img{pointer-events:none}
 <div class="chart"><h3>Как ты чувствовала себя этот год</h3><svg id="ch" viewBox="0 0 640 300" role="img" aria-label="График"></svg></div>
 <p class="hint">Возьми монетку и сотри всё</p>
 <div class="card" id="card"><div class="under"><svg class="i" viewBox="0 0 24 24"><use href="#heart"/></svg><p>Я тебя люблю очень</p></div><canvas id="cv"></canvas><div id="coin" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#e9b947" stroke="#000" stroke-width="2.5"/><circle cx="24" cy="24" r="16.5" fill="none" stroke="#b07d12" stroke-width="2"/><use href="#heart" x="14" y="14" width="20" height="20" fill="#b07d12"/></svg></div></div>
+<div class="prizewrap"><button class="go" id="prizebtn" type="button"><span>Хочешь получить приз?)</span><svg class="i" viewBox="0 0 24 24"><use href="#heart"/></svg></button></div>
 </section>
+</div>
+
+<div id="prize" aria-live="polite">
+  <button id="psnd" type="button" aria-label="Музыка"><svg class="s" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
+
+  <!-- 1. пароль -->
+  <section class="pz-step" id="pz1">
+    <img class="pass" alt="Какой пароль?" src="">
+    <form id="pf" autocomplete="off">
+      <input class="pzin gr" type="text" value="FIVE-1629-LOVEYOU-" readonly tabindex="-1" aria-label="Прошлый код (уже введён)">
+      <input class="pzin" id="pcode" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="60" placeholder="продолжение кода" aria-label="Продолжение кода">
+      <button class="round" type="submit" aria-label="Войти"><svg class="s" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <p id="perr" role="alert"></p>
+  </section>
+
+  <!-- 2. точно хочешь приз? -->
+  <section class="pz-step" id="pz2">
+    <h2>Ты точно хочешь приз?</h2>
+    <div class="pzrow">
+      <button class="pzbtn yes" id="pyes2" type="button">Да</button>
+      <button class="pzbtn" id="pno2" type="button">Нет</button>
+    </div>
+  </section>
+
+  <!-- 3. точно прям? (кнопка убегает 2 раза) -->
+  <section class="pz-step" id="pz3">
+    <h2>Точно прям?</h2>
+    <div class="slot"><button class="pzbtn yes" id="pyes3" type="button">Да</button></div>
+  </section>
+
+  <!-- 4. первое фото, стирать монеткой -->
+  <section class="pz-step" id="pz4">
+    <div id="pc1"></div>
+    <div class="pzq" id="pq4">
+      <h3>Ты хочешь без цензуры, да)?</h3>
+      <div class="pzrow">
+        <div class="slot"><button class="pzbtn yes" id="pyes4" type="button">Да</button></div>
+        <button class="pzbtn" id="pno4" type="button">Нет</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. второе фото + таймер -->
+  <section class="pz-step" id="pz5">
+    <div id="ptimer">Фото исчезнет через <b id="ptime">143:00</b></div>
+    <div id="pc2"></div>
+    <h2 id="pgone">Время вышло, фото исчезло</h2>
+  </section>
 </div>
 
 <audio id="mus" preload="none"></audio>
@@ -477,6 +568,149 @@ function frame(ts){
     e.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px) rotate("+(Math.sin(t*.8+d[4])*9).toFixed(1)+"deg)"+(d[0]?" scaleX(-1)":"")});
   if(!reduce)requestAnimationFrame(frame)}
 frame(0);if(reduce)window.addEventListener("resize",function(){frame(0)});
+window.__stopMusic=function(){try{mus.pause()}catch(e){}gStop()};
+})();
+</script>
+<script>
+(function(){
+var $=function(q){return document.querySelector(q)};
+var SONG="https://mp3tourl.com/audio/1792342138264-a43057aa-6ac3-41a9-9851-3e8250e5d0db.mp3";
+var IMG1="https://i.ibb.co/4nf8Xjdg/IMG-20261018-190236-498.png";
+var IMG2="https://i.ibb.co/twcHqZRD/IMG-20261018-190235-854.png";
+var MINUTES=143;
+var prize=$("#prize"),song=new Audio(),psnd=$("#psnd"),reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+song.src=SONG;song.loop=true;song.preload="none";
+
+// та же картинка "Какой пароль?", что и в самом начале
+var g0=$("#gate .pass");if(g0)$("#pz1 .pass").src=g0.src;
+
+function go(id){
+  document.querySelectorAll(".pz-step").forEach(function(s){s.classList.toggle("on",s.id===id)});
+  prize.scrollTop=0}
+
+/* ---------- вход ---------- */
+$("#prizebtn").addEventListener("click",function(){
+  if(window.__stopMusic)window.__stopMusic();
+  document.body.classList.add("locked");$("#site").setAttribute("inert","");
+  prize.classList.remove("bye");prize.classList.add("on");go("pz1")});
+
+/* ---------- пароль ---------- */
+var RU="йцукенгшщзфывапролдячсмить",EN="qwertyuiopasdfghjklzxcvbnm";
+function norm(v){return v.toLowerCase().split("").map(function(c){var k=RU.indexOf(c);return k>-1?EN[k]:c}).join("").replace(/[^a-z0-9]/g,"").toUpperCase()}
+// 365-ЗА-37819XsSAI-18+- I GOT LOVE-PUPSIK; "ЗА" можно ввести и русскими буквами, и латиницей
+var OK=["365ZA37819XSSAI18IGOTLOVEPUPSIK","365PF37819XSSAI18IGOTLOVEPUPSIK"];
+var pcode=$("#pcode"),perr=$("#perr");
+pcode.addEventListener("input",function(){perr.textContent=""});
+$("#pf").addEventListener("submit",function(e){
+  e.preventDefault();
+  var v=norm(pcode.value);
+  if(v.indexOf("FIVE1629LOVEYOU")===0)v=v.slice(15);
+  if(OK.indexOf(v)>-1){
+    perr.textContent="";
+    var a=new Image();a.src=IMG1;var b=new Image();b.src=IMG2;
+    var pr=song.play();if(pr&&pr.catch)pr.catch(function(){});
+    psnd.classList.add("show");syncSnd();
+    go("pz2");
+  }else{
+    perr.textContent="Неверный код. Попробуй ещё раз.";
+    pcode.classList.remove("shake");void pcode.offsetWidth;pcode.classList.add("shake")}});
+
+/* ---------- песня ---------- */
+function syncSnd(){psnd.classList.toggle("off",song.paused)}
+psnd.addEventListener("click",function(){if(song.paused){var p=song.play();if(p&&p.catch)p.catch(syncSnd)}else song.pause();syncSnd()});
+song.addEventListener("play",syncSnd);song.addEventListener("pause",syncSnd);
+
+/* ---------- выход с сайта ---------- */
+function leave(){
+  try{song.pause()}catch(e){}
+  prize.classList.add("bye");
+  setTimeout(function(){
+    try{window.close()}catch(e){}
+    location.replace("about:blank")},reduce?50:950)}
+
+/* ---------- убегающая кнопка ---------- */
+// spots: [[x от 0 до 1, y от 0 до 1], ...] — куда улетает кнопка при каждом нажатии; после них нажатие срабатывает
+function runaway(btn,spots,done){
+  var n=0,slot=btn.parentNode;
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    if(n>=spots.length){btn.disabled=true;done();return}
+    var r=btn.getBoundingClientRect();
+    if(!btn.classList.contains("fly")){
+      slot.style.width=r.width+"px";slot.style.height=r.height+"px";
+      btn.style.left=r.left+"px";btn.style.top=r.top+"px";btn.classList.add("fly");void btn.offsetWidth}
+    var m=14,top=70,w=r.width,h=r.height,s=spots[n++];
+    btn.style.left=Math.round(m+s[0]*Math.max(0,innerWidth-w-2*m))+"px";
+    btn.style.top=Math.round(top+s[1]*Math.max(0,innerHeight-h-top-m))+"px"})}
+function rnd(a,b){return a+Math.random()*(b-a)}
+
+/* ---------- шаги ---------- */
+$("#pyes2").addEventListener("click",function(){go("pz3")});
+$("#pno2").addEventListener("click",leave);
+// 2 раза улетает: сначала вверх, потом вниз
+runaway($("#pyes3"),[[rnd(.1,.9),0],[rnd(.1,.9),1]],function(){go("pz4");initCard1()});
+// 5 раз улетает в разные стороны
+runaway($("#pyes4"),[[.02,0],[.98,.95],[.98,.02],[.02,.95],[.5,.55]],function(){go("pz5");initCard2()});
+$("#pno4").addEventListener("click",leave);
+
+/* ---------- скретч-карточка (фото стирается монеткой, скачать нельзя) ---------- */
+var COIN='<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#e9b947" stroke="#000" stroke-width="2.5"/><circle cx="24" cy="24" r="16.5" fill="none" stroke="#b07d12" stroke-width="2"/><use href="#heart" x="14" y="14" width="20" height="20" fill="#b07d12"/></svg>';
+function card(host,url,square,onOpen){
+  host.innerHTML="";host.className="pzcard";
+  var base=document.createElement("canvas"),cv=document.createElement("canvas"),coin=document.createElement("div");
+  base.className="pzb0";cv.className="pzsc";coin.className="pzcoin";coin.innerHTML=COIN;
+  host.appendChild(base);host.appendChild(cv);host.appendChild(coin);
+  ["contextmenu","dragstart","selectstart"].forEach(function(n){host.addEventListener(n,function(e){e.preventDefault()})});
+  var dpr=Math.min(2,window.devicePixelRatio||1),img=new Image();
+  function build(ok){
+    var iw=ok?img.naturalWidth:1,ih=ok?img.naturalHeight:1,maxW=Math.min(380,innerWidth-40),W,H;
+    if(square||!ok){W=H=Math.min(maxW,innerHeight*.62)}
+    else{var ar=iw/ih;W=maxW;H=W/ar;var mh=innerHeight*.74;if(H>mh){H=mh;W=H*ar}}
+    W=Math.round(W);H=Math.round(H);
+    host.style.width=W+"px";host.style.height=H+"px";
+    base.width=cv.width=Math.round(W*dpr);base.height=cv.height=Math.round(H*dpr);
+    var b=base.getContext("2d");b.fillStyle="#fff";b.fillRect(0,0,base.width,base.height);
+    if(ok){
+      if(square){var s=Math.min(iw,ih),sx=(iw-s)/2,sy=(ih-s)/2;b.drawImage(img,sx,sy,s,s,0,0,base.width,base.height)}
+      else b.drawImage(img,0,0,base.width,base.height)}
+    else{b.fillStyle="#ff5e5e";b.textAlign="center";b.font="600 "+Math.round(base.width*.06)+"px Manrope,sans-serif";b.fillText("Фото не загрузилось",base.width/2,base.height/2)}
+    scratch(W,H)}
+  img.onload=function(){build(true)};img.onerror=function(){build(false)};img.src=url;
+
+  function scratch(W,H){
+    var c=cv.getContext("2d"),down=false,done=false,lx=0,ly=0,tm=0,R=Math.max(18,Math.min(W,H)*.065),i;
+    c.scale(dpr,dpr);
+    var g=c.createLinearGradient(0,0,W,H);g.addColorStop(0,"#cfcfcf");g.addColorStop(.5,"#f2f2f2");g.addColorStop(1,"#b5b5b5");
+    c.fillStyle=g;c.fillRect(0,0,W,H);
+    c.strokeStyle="rgba(0,0,0,.14)";c.lineWidth=1;
+    for(i=1;i<8;i++){c.beginPath();c.moveTo(i*W/8,0);c.lineTo(i*W/8,H);c.moveTo(0,i*H/8);c.lineTo(W,i*H/8);c.stroke()}
+    c.fillStyle="#444";c.textAlign="center";c.font="600 "+Math.round(Math.min(W,H)*.07)+"px Manrope,sans-serif";c.fillText("Сотри монеткой",W/2,H/2+H*.025);
+    c.globalCompositeOperation="destination-out";c.strokeStyle="#000";c.lineCap="round";c.lineWidth=R*2;
+    function P(e){var r=cv.getBoundingClientRect();return[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
+    function mv(e){var r=host.getBoundingClientRect();coin.style.transform="translate("+(e.clientX-r.left)+"px,"+(e.clientY-r.top)+"px)"}
+    function open(){done=true;coin.classList.remove("on");cv.style.opacity=0;cv.style.pointerEvents="none";if(onOpen)onOpen()}
+    function chk(){var n=Date.now();if(n-tm<200)return;tm=n;var d=c.getImageData(0,0,cv.width,cv.height).data,k=0,t=0,j;for(j=3;j<d.length;j+=256){t++;if(d[j]<128)k++}if(k/t>.5)open()}
+    cv.addEventListener("pointerdown",function(e){if(done)return;down=true;cv.setPointerCapture(e.pointerId);var p=P(e);lx=p[0];ly=p[1];c.beginPath();c.moveTo(lx,ly);c.lineTo(lx+.1,ly);c.stroke();mv(e);coin.classList.add("on")});
+    cv.addEventListener("pointermove",function(e){if(done)return;mv(e);if(e.pointerType==="mouse")coin.classList.add("on");if(!down)return;var p=P(e);c.beginPath();c.moveTo(lx,ly);c.lineTo(p[0],p[1]);c.stroke();lx=p[0];ly=p[1];chk()});
+    ["pointerup","pointercancel"].forEach(function(n){cv.addEventListener(n,function(e){down=false;if(e.pointerType!=="mouse")coin.classList.remove("on");tm=0;if(!done)chk()})});
+    cv.addEventListener("pointerleave",function(){if(!down)coin.classList.remove("on")})}
+}
+
+function initCard1(){card($("#pc1"),IMG1,true,function(){$("#pq4").classList.add("on")})}
+
+/* ---------- второе фото: таймер 143 минуты ---------- */
+var iv=0;
+function initCard2(){
+  card($("#pc2"),IMG2,false,null);
+  var end=Date.now()+MINUTES*60*1000,el=$("#ptime");
+  function tick(){
+    var s=Math.max(0,Math.ceil((end-Date.now())/1000));
+    el.textContent=Math.floor(s/60)+":"+("0"+(s%60)).slice(-2);
+    if(s<=0){clearInterval(iv);expire()}}
+  function expire(){
+    var h=$("#pc2");h.innerHTML="";h.style.display="none";
+    $("#ptimer").style.display="none";$("#pgone").style.display="block"}
+  clearInterval(iv);tick();iv=setInterval(tick,1000)}
 })();
 </script>
 </body>
